@@ -2,4 +2,13 @@
     <string name="app_name">videoJuegosApp</string>
     <string name="todos">Todos</string>
     <string name="favoritos">Favoritos</string>
+    <string name="procesador">Procesador</string>
+    <string name="gr_ficos">Gráficos</string>
+    <string name="memoria">Memoria</string>
+    <string name="so">SO</string>
+    <string name="descripci_n_requerimientos_de_sistema">Descripción requerimientos de sistema</string>
+    <string name="acerca_de">Acerca de %1$s</string>
+    <string name="jugar_ahora">Jugar Ahora</string>
+    <string name="pc">pc</string>
+    <string name="browser">browser</string>
 </resources>

@@ -5,7 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.LaptopWindows
+import androidx.compose.material.icons.filled.WebStories
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,7 +23,7 @@ import coil.compose.AsyncImage
 import com.example.videojuegosapp.R
 import com.example.videojuegosapp.dominio.modelo.VideoJuego
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideoJuegoItem(
     modifier: Modifier = Modifier,
@@ -29,20 +31,24 @@ fun VideoJuegoItem(
 ) {
 
     Card(
+        onClick = {
+            onClick(videoJuego)
+        },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
         elevation = CardDefaults.cardElevation(0.5.dp),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(14.dp),
     ) {
         Column {
             AsyncImage(
                 model = videoJuego.miniatura,
-                contentDescription = "Game",
+                contentDescription = "VideoJuego",
                 contentScale = ContentScale.Crop,
                 placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
-                modifier = modifier.fillMaxWidth()
+                modifier = modifier
+                    .fillMaxWidth()
                     .height(220.dp),
                 alignment = Alignment.Center,
                 alpha = DefaultAlpha,
@@ -50,16 +56,18 @@ fun VideoJuegoItem(
             )
 
             Row(
-                modifier.fillMaxWidth()
+                modifier
+                    .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(text = videoJuego.titulo, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
 
                 Row(
-                    modifier = modifier.background(
-                        MaterialTheme.colorScheme.secondary, RoundedCornerShape(4.dp)
-                    )
+                    modifier = modifier
+                        .background(
+                            MaterialTheme.colorScheme.secondary, RoundedCornerShape(4.dp)
+                        )
                         .padding(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -82,16 +90,18 @@ fun VideoJuegoItem(
 
 
             Row(
-                modifier.fillMaxWidth()
+                modifier
+                    .fillMaxWidth()
                     .padding(top = 8.dp, bottom = 16.dp, start = 8.dp, end = 8.dp),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
                 Row(
-                    modifier = modifier.background(
-                        MaterialTheme.colorScheme.secondary, RoundedCornerShape(4.dp)
-                    )
+                    modifier = modifier
+                        .background(
+                            MaterialTheme.colorScheme.secondary, RoundedCornerShape(4.dp)
+                        )
                         .padding(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -103,10 +113,10 @@ fun VideoJuegoItem(
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                val icon = if (videoJuego.plataforma.lowercase().contains("pc")) {
-                    Icons.Default.Search
-                } else if (videoJuego.plataforma.lowercase().contains("browser")) {
-                    Icons.Default.CheckCircle
+                val icon = if (videoJuego.plataforma.lowercase().contains(stringResource(R.string.pc))) {
+                    Icons.Default.LaptopWindows
+                } else if (videoJuego.plataforma.lowercase().contains(stringResource(R.string.browser))) {
+                    Icons.Default.WebStories
                 } else {
                     null
                 }
@@ -115,7 +125,9 @@ fun VideoJuegoItem(
                     Icon(
                         imageVector = it, contentDescription = "Filters",
                         tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = modifier.padding(start = 8.dp).size(18.dp)
+                        modifier = modifier
+                            .padding(start = 8.dp)
+                            .size(18.dp)
                     )
                 }
 
