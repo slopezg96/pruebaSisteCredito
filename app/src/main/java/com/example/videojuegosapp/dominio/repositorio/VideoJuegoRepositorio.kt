@@ -8,5 +8,4 @@ import kotlinx.coroutines.flow.Flow
 interface VideoJuegoRepositorio {
     suspend fun obtenerVideoJuegos(): Flow<ResultadoRed<List<VideoJuego>>>
     suspend fun obetnerDetalleVideoJuego(id: Int): Flow<ResultadoRed<DetalleVideoJuego>>
-    suspend fun obtenerVideoJuegosFavoritos(): Flow<ResultadoRed<List<VideoJuego>>>
 }
