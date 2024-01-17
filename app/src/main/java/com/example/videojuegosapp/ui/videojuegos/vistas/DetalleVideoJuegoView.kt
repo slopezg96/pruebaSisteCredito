@@ -1,4 +1,4 @@
-package com.example.videojuegosapp.ui.videojuegos.detalleVideoJuego
+package com.example.videojuegosapp.ui.videojuegos.vistas
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,7 +1,10 @@
 package com.example.videojuegosapp.data.repositorio
 
+import android.app.Application
 import com.example.videojuegosapp.data.ResultadoRed
 import com.example.videojuegosapp.data.api.VideoJuegoApiServicio
+import com.example.videojuegosapp.data.basedatos.VideoJuegosDataBase
+import com.example.videojuegosapp.data.basedatos.dao.VideoJuegoDAO
 import com.example.videojuegosapp.data.dto.DetalleVideoJuegoDTO
 import com.example.videojuegosapp.data.invocacionApiSegura
 import com.example.videojuegosapp.data.mapeador.convertirADominio
@@ -33,4 +36,8 @@ private val videoJuegoApiServicio: VideoJuegoApiServicio
             }
             emit(response)
         }
+
+    override suspend fun obtenerVideoJuegosFavoritos(): Flow<ResultadoRed<List<VideoJuego>>> {
+        TODO("Not yet implemented")
+    }
 }

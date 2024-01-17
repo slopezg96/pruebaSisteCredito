@@ -2,6 +2,7 @@ package com.example.videojuegosapp.di
 
 import com.example.videojuegosapp.data.api.VideoJuegoApiServicio
 import com.example.videojuegosapp.data.repositorio.VideoJuegoRepositorioImpl
+import com.example.videojuegosapp.data.repositorio.VideoJuegoRepositorioLocal
 import com.example.videojuegosapp.dominio.repositorio.VideoJuegoRepositorio
 import com.example.videojuegosapp.ui.videojuegos.viewmodel.VideoJuegoViewModel
 import io.ktor.client.HttpClient
@@ -14,7 +15,10 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import kotlin.math.sin
 
 const val BASE_URL = "www.freetogame.com"
 
@@ -60,7 +64,11 @@ fun moduloComun() = module {
 
     single<VideoJuegoRepositorio> { VideoJuegoRepositorioImpl(videoJuegoApiServicio = get()) }
 
+    single { provideDataBase(androidContext()) }
+    single { provideDAO(get()) }
+    single { VideoJuegoRepositorioLocal(get()) }
+
     single {
-        VideoJuegoViewModel(videojuegoRepositorio = get())
+        VideoJuegoViewModel(videojuegoRepositorio = get(), videoJuegoRepositorioLocal = get())
     }
 }

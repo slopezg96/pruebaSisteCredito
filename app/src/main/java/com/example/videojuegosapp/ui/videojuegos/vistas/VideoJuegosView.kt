@@ -1,6 +1,7 @@
 package com.example.videojuegosapp.ui.videojuegos.vistas
 
 
+import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,7 +33,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
@@ -41,13 +41,12 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.videojuegosapp.TabScreen
 import com.example.videojuegosapp.ui.videojuegos.componentes.VideoJuegoItem
-import com.example.videojuegosapp.ui.videojuegos.detalleVideoJuego.DetalleVideoJuegoView
 import com.example.videojuegosapp.ui.videojuegos.viewmodel.VideoJuegoViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 
-internal class VideoJuegosView : Screen, KoinComponent {
+internal class VideoJuegosView (application: Application): Screen, KoinComponent {
 
     @Composable
     override fun Content() {

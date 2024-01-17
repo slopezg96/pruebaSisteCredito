@@ -1,19 +1,18 @@
 package com.example.videojuegosapp.ui.videojuegos.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.videojuegosapp.data.repositorio.VideoJuegoRepositorioImpl
 import kotlinx.coroutines.launch
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.example.videojuegosapp.data.ResultadoRed
+import com.example.videojuegosapp.data.repositorio.VideoJuegoRepositorioLocal
 import com.example.videojuegosapp.dominio.repositorio.VideoJuegoRepositorio
 import com.example.videojuegosapp.ui.videojuegos.state.VideoJuegoState
 import kotlinx.coroutines.flow.update
 
 
 class VideoJuegoViewModel(
-    private val videojuegoRepositorio: VideoJuegoRepositorio
+    private val videojuegoRepositorio: VideoJuegoRepositorio,
+    private val videoJuegoRepositorioLocal: VideoJuegoRepositorioLocal
 ) : StateScreenModel<VideoJuegoState>(VideoJuegoState()) {
 
     init {
