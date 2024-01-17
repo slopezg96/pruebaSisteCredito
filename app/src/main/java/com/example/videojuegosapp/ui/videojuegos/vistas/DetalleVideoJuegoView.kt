@@ -21,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -32,6 +33,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.layout.ContentScale
@@ -44,6 +46,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import coil.compose.AsyncImage
 import com.example.videojuegosapp.R
+import com.example.videojuegosapp.data.mapeador.convertirAEntidad
 import com.example.videojuegosapp.dominio.modelo.DetalleVideoJuego
 import com.example.videojuegosapp.dominio.modelo.VideoJuego
 import com.example.videojuegosapp.ui.videojuegos.viewmodel.VideoJuegoViewModel
@@ -88,12 +91,11 @@ internal class DetalleVideoJuegoView(
                     filterQuality = DrawScope.DefaultFilterQuality,
                 )
 
-                PlayNowComponent(onClick = {
-                    //to webview
-                }, detalleVideoJuego = state.value.detalleVideoJuego)
+                GuardarComoFavoritoView(onClick = {
+                    viewModel.insertarFavorito(videoJuego.convertirAEntidad())
+                }, videoJuego = videoJuego)
 
 
-                //AnimatedVisibility(!state.value.isLoading) {
                 Column(
                     Modifier.padding(horizontal = 16.dp)
                 ) {
@@ -246,8 +248,8 @@ internal class DetalleVideoJuegoView(
 }
 
 @Composable
-fun PlayNowComponent(
-    modifier: Modifier = Modifier, onClick: (String) -> Unit, detalleVideoJuego: DetalleVideoJuego?,
+fun GuardarComoFavoritoView(
+    modifier: Modifier = Modifier, onClick: (VideoJuego) -> Unit, videoJuego: VideoJuego,
 ) {
     Row(
         modifier
@@ -278,23 +280,24 @@ fun PlayNowComponent(
 
         Button(
             onClick = {
-                detalleVideoJuego?.urlVideoJuego?.let { onClick(it) }
+                 onClick(videoJuego)
             },
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.tertiaryContainer),
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onSurface),
             elevation = ButtonDefaults.buttonElevation(1.dp),
             shape = RoundedCornerShape(8.dp), contentPadding = PaddingValues(16.dp)
         ) {
-            Text(
-                text = stringResource(R.string.jugar_ahora), fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onTertiaryContainer
-            )
-            Spacer(modifier = modifier.width(8.dp))
             Icon(
-                imageVector = Icons.Default.ExitToApp,
+                imageVector = Icons.Default.Star,
                 contentDescription = null,
                 modifier = modifier.size(ButtonDefaults.IconSize),
-                tint = MaterialTheme.colorScheme.onTertiaryContainer
+                tint = Color.White
             )
+            Spacer(modifier = modifier.width(8.dp))
+            Text(
+                text = stringResource(R.string.favorito), fontWeight = FontWeight.SemiBold,
+                color = Color.White
+            )
+
         }
     }
 }

@@ -17,9 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Observer
 import cafe.adriel.voyager.navigator.Navigator
 import com.example.videojuegosapp.ui.theme.VideoJuegosAppTheme
 import com.example.videojuegosapp.ui.videojuegos.viewmodel.VideoJuegoViewModel
+import com.example.videojuegosapp.ui.videojuegos.vistas.FavoritosScreen
 import com.example.videojuegosapp.ui.videojuegos.vistas.VideoJuegosScreen
 import org.koin.java.KoinJavaComponent
 
@@ -29,6 +31,9 @@ class MainActivity : ComponentActivity() {
     val viewModel: VideoJuegoViewModel by KoinJavaComponent.inject(VideoJuegoViewModel::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.favoritos.observe(this, Observer { favoritos ->
+            print(favoritos.size)
+        })
         setContent {
 
             App(darkTheme = isSystemInDarkTheme(), dynamicColor = true, application)
@@ -56,6 +61,7 @@ fun TabScreen(viewModel: VideoJuegoViewModel, navigator: Navigator) {
         }
         when (tabIndex) {
             0 -> VideoJuegosScreen( viewModel = viewModel, navigator = navigator)
+            1 -> FavoritosScreen( viewModel = viewModel, navigator = navigator)
         }
     }
 }

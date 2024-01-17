@@ -35,12 +35,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.map
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.videojuegosapp.TabScreen
+import com.example.videojuegosapp.data.mapeador.convertirADominio
 import com.example.videojuegosapp.ui.videojuegos.componentes.VideoJuegoItem
+import com.example.videojuegosapp.ui.videojuegos.favoritos
 import com.example.videojuegosapp.ui.videojuegos.viewmodel.VideoJuegoViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -52,8 +55,7 @@ internal class VideoJuegosView (application: Application): Screen, KoinComponent
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel: VideoJuegoViewModel by inject()
-        val state = viewModel.state.collectAsState()
-        val showOptionsMenu = remember { mutableStateOf(false) }
+
 
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -72,7 +74,9 @@ fun VideoJuegosScreen(viewModel: VideoJuegoViewModel, navigator: Navigator) {
     })
 
     Box(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface),
     ) {
 
         Column {
@@ -85,15 +89,11 @@ fun VideoJuegosScreen(viewModel: VideoJuegoViewModel, navigator: Navigator) {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-
                     items(state.value.videoJuegos.size) { i ->
-
                         VideoJuegoItem(videoJuego = state.value.videoJuegos[i], onClick = {
                             navigator.push(DetalleVideoJuegoView(videoJuego = it))
                         })
                     }
-
-
                 }
 
 

@@ -7,5 +7,6 @@ data class VideoJuegoState(
     val estaCargando: Boolean = false,
     val mensajeError: String? = null,
     val videoJuegos:List<VideoJuego> = emptyList(),
+    val favoritos:List<VideoJuego> = emptyList(),
     val detalleVideoJuego: DetalleVideoJuego? = null,
     )

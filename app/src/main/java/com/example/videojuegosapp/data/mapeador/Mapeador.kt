@@ -1,5 +1,6 @@
 package com.example.videojuegosapp.data.mapeador
 
+import com.example.videojuegosapp.data.basedatos.entidades.VideoJuegoEntidad
 import com.example.videojuegosapp.data.dto.CapturaPantallaDTO
 import com.example.videojuegosapp.data.dto.DetalleVideoJuegoDTO
 import com.example.videojuegosapp.data.dto.RequerimientosMinimosSistemaDTO
@@ -37,6 +38,33 @@ internal fun VideoJuegoDTO.convertirADominio(): VideoJuego{
         this.editor,
         this.fechaLanzamiento,
         this.id)
+}
+
+internal fun VideoJuegoEntidad.convertirADominio(): VideoJuego{
+    return VideoJuego(
+        this.miniatura,
+        this.titulo,
+        this.genero,
+        this.desarrollador,
+        this.descripcionCorta,
+        this.plataforma,
+        this.editor,
+        this.fechaLanzamiento,
+        this.id)
+}
+
+internal fun VideoJuego.convertirAEntidad(): VideoJuegoEntidad{
+    return VideoJuegoEntidad(
+        this.id,
+        this.titulo,
+        this.miniatura,
+        this.descripcionCorta,
+        this.desarrollador,
+        this.genero,
+        this.plataforma,
+        this.editor,
+        this.fechaLanzamiento,
+    )
 }
 
 internal fun DetalleVideoJuegoDTO.convertirADominio(): DetalleVideoJuego {
