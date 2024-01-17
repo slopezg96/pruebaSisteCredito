@@ -2,6 +2,8 @@ package com.example.videojuegosapp.ui.videojuegos.vistas
 
 
 import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -66,6 +68,7 @@ internal class VideoJuegosView (application: Application): Screen, KoinComponent
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun VideoJuegosScreen(viewModel: VideoJuegoViewModel, navigator: Navigator) {
     val state = viewModel.state.collectAsState()
@@ -95,8 +98,6 @@ fun VideoJuegosScreen(viewModel: VideoJuegoViewModel, navigator: Navigator) {
                         })
                     }
                 }
-
-
             }
 
             if (state.value.estaCargando) {

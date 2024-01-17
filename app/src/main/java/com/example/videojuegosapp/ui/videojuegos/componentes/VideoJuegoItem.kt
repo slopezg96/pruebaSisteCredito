@@ -1,5 +1,7 @@
 package com.example.videojuegosapp.ui.videojuegos.componentes
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.layout.ContentScale
@@ -20,8 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.videojuegosapp.R
+import com.example.videojuegosapp.comun.convertirAFormatoMostrarFecha
 import com.example.videojuegosapp.dominio.modelo.VideoJuego
+import java.time.LocalDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideoJuegoItem(
@@ -64,17 +70,14 @@ fun VideoJuegoItem(
 
                 Row(
                     modifier = modifier
-                        .background(
-                            MaterialTheme.colorScheme.secondary, RoundedCornerShape(4.dp)
-                        )
                         .padding(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
                     Text(
-                        text = "FREE",
+                        text = videoJuego.fechaLanzamiento.convertirAFormatoMostrarFecha(),
                         fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.onSecondary,
+                        color = Color.Black,
                         fontWeight = FontWeight.SemiBold
                     )
 
@@ -83,7 +86,7 @@ fun VideoJuegoItem(
 
             Text(
                 text = videoJuego.descripcionCorta, fontSize = 15.sp,
-                maxLines = 1, modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                maxLines = 2, modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 fontWeight = FontWeight.W300
             )
 
@@ -102,11 +105,30 @@ fun VideoJuegoItem(
                             MaterialTheme.colorScheme.secondary, RoundedCornerShape(4.dp)
                         )
                         .padding(4.dp),
+                    horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
                     Text(
                         text = videoJuego.genero,
+                        fontSize = 10.sp,
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+
+                Row(
+                    modifier = modifier
+                        .background(
+                            Color.DarkGray, RoundedCornerShape(4.dp)
+                        )
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Text(
+                        text = videoJuego.editor,
                         fontSize = 10.sp,
                         color = MaterialTheme.colorScheme.onSecondary,
                         fontWeight = FontWeight.SemiBold

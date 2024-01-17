@@ -1,5 +1,6 @@
 package com.example.videojuegosapp.ui.videojuegos.vistas
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -115,12 +117,13 @@ internal class DetalleVideoJuegoView(
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
-//                    Text(
-//                        text = "Additional information", fontSize = 16.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = MaterialTheme.colorScheme.onSurface
-//                    )
-
+                    Text(
+                        text = state.value.detalleVideoJuego?.urlVideoJuego ?: "",
+                        fontSize = 15.sp,
+                        modifier = Modifier.padding(vertical = 16.dp),
+                        fontWeight = FontWeight.W300,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
 
                     Spacer(Modifier.height(24.dp))
 
@@ -249,8 +252,9 @@ internal class DetalleVideoJuegoView(
 
 @Composable
 fun GuardarComoFavoritoView(
-    modifier: Modifier = Modifier, onClick: (VideoJuego) -> Unit, videoJuego: VideoJuego,
+    modifier: Modifier = Modifier, onClick: (VideoJuego) -> Unit, videoJuego: VideoJuego
 ) {
+    val mContext = LocalContext.current
     Row(
         modifier
             .fillMaxWidth()
@@ -269,18 +273,12 @@ fun GuardarComoFavoritoView(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Text(
-                text = "FREE",
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.SemiBold
-            )
-
         }
 
         Button(
             onClick = {
                  onClick(videoJuego)
+                Toast.makeText(mContext, "${videoJuego.titulo} se ha guardado a Favoritos.", Toast.LENGTH_SHORT).show()
             },
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onSurface),
             elevation = ButtonDefaults.buttonElevation(1.dp),
