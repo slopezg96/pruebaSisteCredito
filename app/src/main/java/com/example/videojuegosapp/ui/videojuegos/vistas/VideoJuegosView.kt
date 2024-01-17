@@ -92,7 +92,7 @@ fun VideoJuegosScreen(viewModel: VideoJuegoViewModel, navigator: Navigator) {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    items(state.value.videoJuegos.size) { i ->
+                    items(state.value.videoJuegos.sortedByDescending { it.fechaLanzamiento }.size) { i ->
                         VideoJuegoItem(videoJuego = state.value.videoJuegos[i], onClick = {
                             navigator.push(DetalleVideoJuegoView(videoJuego = it))
                         })
